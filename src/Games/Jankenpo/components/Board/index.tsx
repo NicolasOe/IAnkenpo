@@ -1,20 +1,20 @@
 import React from 'react'
 
 import useJankenpo from '../../hooks/useJankenpo'
-import { Options } from '../../contants/options'
+import { Option as OptionName } from '../../contants/options'
 
 import Option from '../Option'
 
 import { Container } from './styles'
 
 const Board: React.FC = () => {
-    const { runTurn } = useJankenpo()
+    const {  } = useJankenpo()
 
     return (
         <Container>
-            <Option option={Options.GU} />
-            <Option option={Options.CHOKI} />
-            <Option option={Options.PA} />
+            <Option option={OptionName.GU} />
+            <Option option={OptionName.CHOKI} />
+            <Option option={OptionName.PA} />
         </Container>)
 }
 

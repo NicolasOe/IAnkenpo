@@ -1,8 +1,8 @@
-export const Options = {
+export const Option = {
     GU: 'gu',
     CHOKI: 'choki',
     PA: 'pa',
   } as const
   
-  export type OptionsType = ConstantValues<typeof Options>
+  export type OptionType = ConstantValues<typeof Option>
   

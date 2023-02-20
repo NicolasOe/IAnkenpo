@@ -3,12 +3,12 @@ import React from "react"
 interface JankenpoReturn {
     runTurn: (playerMove: JankenpoMove) => void
 }
-
-enum JankenpoMove {
+export enum JankenpoMove {
     GU = 0,
     CHOKI = 1,
     PA = 2
 }
+export type JankenpoName = "Jankenpo";
 
 enum JankenpoGameStateEnum {
     P1WIN = "p1win",
@@ -16,8 +16,11 @@ enum JankenpoGameStateEnum {
     DRAW = "draw"
 }
 
+const playerMoves: JankenpoMove[] = [];
+
 // Temporary function, to insert IA
 const runIAnMove = (): JankenpoMove => {
+
     return JankenpoMove.CHOKI;
 }
 

@@ -10,11 +10,10 @@ const runIAnMove = (): JankenpoMoveType => {
 }
 
 const useJankenpo = (): JankenpoHook  => {
-    function validateWin(winnerCandidateMove: JankenpoMoveType, loserCandidateMove: JankenpoMoveType): JankenpoGameStateType {
-        if (winnerCandidateMove !== loserCandidateMove) {
-            
-        }
-        return JankenpoGameState.DRAW
+    function validateWin(winnerCandidateMove: JankenpoMoveType, loserCandidateMove: JankenpoMoveType): boolean {
+        return (winnerCandidateMove === JankenpoMove.CHOKI && loserCandidateMove === JankenpoMove.PA)
+            || (winnerCandidateMove === JankenpoMove.PA && loserCandidateMove === JankenpoMove.GU)
+            || (winnerCandidateMove === JankenpoMove.GU && loserCandidateMove === JankenpoMove.CHOKI);
     }
     function winnerCheck(p1Move: JankenpoMoveType, p2Move: JankenpoMoveType): JankenpoGameStateType {
         if (validateWin(p1Move, p2Move)) {

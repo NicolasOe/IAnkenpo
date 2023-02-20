@@ -14,7 +14,7 @@ const useGame = ()  => {
         
     }
     
-    return { runTurn }
+    return { initGame, runTurn }
 }
 
 export default (useGame);

@@ -1,6 +1,6 @@
-import { JankenpoMove } from "./JankenpoMove";
+import { JankenpoMoveType } from "./JankenpoMove";
 
 export interface JankenpoHook {
-    runTurn: (playerMove: JankenpoMove) => void,
+    runTurn: (playerMove: JankenpoMoveType) => void,
     imAlive: () => void
 }

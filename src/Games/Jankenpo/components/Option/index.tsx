@@ -1,29 +1,31 @@
 import React from 'react'
 import { Text, Button } from '@chakra-ui/react'
 
-import { Option as OptionName, OptionType } from '../../contants/options'
+import { JankenpoMove, JankenpoMoveType } from '../../model/JankenpoMove'
 
 import { Container} from './styles'
 
 import rockImg from '../assets/rock.png'
 import paperImg from '../assets/paper.png'
 import scissorsImg from '../assets/scissors.png'
+import useJankenpo from '../../hooks/useJankenpo'
 
 const optionImg = {
-    'gu': rockImg,
-    'choki': scissorsImg,
-    'pa': paperImg,
+    'GU': rockImg,
+    'CHOKI': scissorsImg,
+    'PA': paperImg,
 }
 
 interface OptionProps {
-    option: OptionType
+    option: JankenpoMoveType
 }
 
 const Option: React.FC<OptionProps> = ({ option }) => {
+    const { runTurn } = useJankenpo();
     return (
         <Container>
             <img src={optionImg[option]} alt='' />
-            <Button mt={6} colorScheme='teal' size='lg'>{option}</Button>
+            <Button mt={6} colorScheme='teal' size='lg' onClick={() => { runTurn(JankenpoMove[option]) }}>{option}</Button>
         </Container>
     )
 }

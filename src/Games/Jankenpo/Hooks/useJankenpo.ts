@@ -1,31 +1,34 @@
-import { JankenpoGameStateEnum } from "../model/JankenpoGameStateEnum";
+import { JankenpoGameState, JankenpoGameStateType } from "../model/JankenpoGameState";
 import { JankenpoHook } from "../model/JankenpoHook";
-import { JankenpoMove } from "../model/JankenpoMove";
+import { JankenpoMove, JankenpoMoveType } from "../model/JankenpoMove";
 
-const playerMoves: JankenpoMove[] = [];
+const playerMoves: JankenpoMoveType[] = [];
 
 // Temporary function, to insert IA
-const runIAnMove = (): JankenpoMove => {
+const runIAnMove = (): JankenpoMoveType => {
     return JankenpoMove.CHOKI;
 }
 
 const useJankenpo = (): JankenpoHook  => {
-    function validateWin(winnerCandidateMove: JankenpoMove, loserCandidateMove: JankenpoMove) {
-        return (winnerCandidateMove + 1) % 3 === loserCandidateMove;
+    function validateWin(winnerCandidateMove: JankenpoMoveType, loserCandidateMove: JankenpoMoveType): JankenpoGameStateType {
+        if (winnerCandidateMove !== loserCandidateMove) {
+            
+        }
+        return JankenpoGameState.DRAW
     }
-    function winnerCheck(p1Move: JankenpoMove, p2Move: JankenpoMove): JankenpoGameStateEnum {
+    function winnerCheck(p1Move: JankenpoMoveType, p2Move: JankenpoMoveType): JankenpoGameStateType {
         if (validateWin(p1Move, p2Move)) {
-            return JankenpoGameStateEnum.P1WIN
+            return JankenpoGameState.P1WIN
         }
         if (validateWin(p2Move, p1Move)) {
-            return JankenpoGameStateEnum.P2WIN
+            return JankenpoGameState.P2WIN
         }
-        return JankenpoGameStateEnum.DRAW
+        return JankenpoGameState.DRAW
     }
     const imAlive = () => {
         console.log("Im Alive!");
     }
-    const runTurn = (playerMove: JankenpoMove) => { 
+    const runTurn = (playerMove: JankenpoMoveType) => { 
         return winnerCheck(playerMove, runIAnMove());
     }
 

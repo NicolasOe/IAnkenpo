@@ -4,7 +4,7 @@ import { GameName } from './games/interface';
 import JankenpoBoard from './games/jankenpo/components/Board'
 import useGame from './games/useGame';
 function App() {
-  const { initGame, runTurn } = useGame();
+  const { initGame } = useGame();
   initGame(GameName.JANKENPO);
   return (
     <JankenpoBoard />

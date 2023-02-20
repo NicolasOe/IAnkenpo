@@ -1,28 +1,15 @@
-interface JankenpoReturn {
-    runTurn: (playerMove: JankenpoMove) => void
-}
-export enum JankenpoMove {
-    GU = 0,
-    CHOKI = 1,
-    PA = 2
-}
-export type JankenpoName = "Jankenpo";
-
-enum JankenpoGameStateEnum {
-    P1WIN = "p1win",
-    P2WIN = "p2win",
-    DRAW = "draw"
-}
+import { JankenpoGameStateEnum } from "../model/JankenpoGameStateEnum";
+import { JankenpoHook } from "../model/JankenpoHook";
+import { JankenpoMove } from "../model/JankenpoMove";
 
 const playerMoves: JankenpoMove[] = [];
 
 // Temporary function, to insert IA
 const runIAnMove = (): JankenpoMove => {
-
     return JankenpoMove.CHOKI;
 }
 
-const useJankenpo = (): JankenpoReturn  => {
+const useJankenpo = (): JankenpoHook  => {
     function validateWin(winnerCandidateMove: JankenpoMove, loserCandidateMove: JankenpoMove) {
         return (winnerCandidateMove + 1) % 3 === loserCandidateMove;
     }
@@ -35,12 +22,14 @@ const useJankenpo = (): JankenpoReturn  => {
         }
         return JankenpoGameStateEnum.DRAW
     }
-
+    const imAlive = () => {
+        console.log("Im Alive!");
+    }
     const runTurn = (playerMove: JankenpoMove) => { 
         return winnerCheck(playerMove, runIAnMove());
     }
 
-    return { runTurn }
+    return { runTurn, imAlive }
 }
 
 export default (useJankenpo);

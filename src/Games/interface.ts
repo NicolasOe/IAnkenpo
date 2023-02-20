@@ -1,4 +1,12 @@
-import { JankenpoMove, JankenpoName } from "./Jankenpo/Hooks/useJankenpo";
+import { JankenpoHook } from "./jankenpo/model/JankenpoHook";
+import { JankenpoMove } from "./jankenpo/model/JankenpoMove";
 
-export type GameName = JankenpoName;
+interface BaseGameHook {
+    runTurn: (p1Move: GameMove, p2Move?: GameMove) => void,
+}
+
+export enum GameName {
+    JANKENPO = "jankenpo"
+};
 export type GameMove = JankenpoMove;
+export type GameHook = BaseGameHook & (JankenpoHook)

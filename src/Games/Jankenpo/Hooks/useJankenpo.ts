@@ -24,10 +24,10 @@ const useJankenpo = (): JankenpoHook  => {
         }
         return JankenpoGameState.DRAW
     }
-    const imAlive = () => {
+    const imAlive = (): void => {
         console.log("Im Alive!");
     }
-    const runTurn = (playerMove: JankenpoMoveType) => { 
+    const runTurn = (playerMove: JankenpoMoveType): JankenpoGameStateType => { 
         return winnerCheck(playerMove, runIAnMove());
     }
 

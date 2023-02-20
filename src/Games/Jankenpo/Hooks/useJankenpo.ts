@@ -1,5 +1,3 @@
-import React from "react"
-
 interface JankenpoReturn {
     runTurn: (playerMove: JankenpoMove) => void
 }

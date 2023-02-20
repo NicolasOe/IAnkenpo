@@ -1,11 +1,11 @@
 import React from "react"
 
 interface JankenpoReturn {
-    run: () => void
+    runTurn: () => void
 }
 
 export const useJankenpo = (): JankenpoReturn  => {
-    const run = () => { console.log("Yaaay") }
+    const runTurn = () => { console.log("Yaaay") }
 
-    return { run }
+    return { runTurn }
 }

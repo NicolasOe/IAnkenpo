@@ -1,33 +1,41 @@
 import React, { useState, useCallback } from 'react'
+import { Button } from '@chakra-ui/react'
 
 import { JankenpoGameStateType } from '../../model/JankenpoGameState'
 import { JankenpoMove, JankenpoMoveType } from '../../model/JankenpoMove'
 
-import Option from '../Move'
+import Move from '../Move'
+import Result from '../Result'
 
-import { Container } from './styles'
+import { Container, Moves } from './styles'
 
 const Board: React.FC = () => {
-    const [result, setResult] = useState<JankenpoGameStateType>();
-    const [move, setMove] = useState<JankenpoMoveType>();
+    const [result, setResult] = useState<JankenpoGameStateType | null>();
+    const [move, setMove] = useState<JankenpoMoveType | null>();
     
-    const onMoveClick = useCallback((
+    const handleMoveClick = useCallback((
         jankenpoGameState: JankenpoGameStateType,
         selectedMove: JankenpoMoveType
     ) => {
         setResult(jankenpoGameState);
         setMove(selectedMove)
-    }, [])
-    
+    }, []) 
+        
+    const handleReset = useCallback(() => {
+        setResult(null)
+        setMove(null)
+    }, []) 
+
     return (
-        <div id="Main">
-            <span>Result: {result}</span>
-            <Container>
-                <Option move={JankenpoMove.GU} onClick={onMoveClick} isSelected={move === JankenpoMove.GU} />
-                <Option move={JankenpoMove.CHOKI} onClick={onMoveClick}  isSelected={move === JankenpoMove.CHOKI} />
-                <Option move={JankenpoMove.PA} onClick={onMoveClick}  isSelected={move === JankenpoMove.PA} />
-            </Container>
-        </div>
+        <Container>
+            <Result result={result} p1Move={move} p2Move={JankenpoMove.CHOKI}/>
+            <Moves>
+                <Move move={JankenpoMove.GU} onClick={handleMoveClick} isSelected={move === JankenpoMove.GU} />
+                <Move move={JankenpoMove.CHOKI} onClick={handleMoveClick}  isSelected={move === JankenpoMove.CHOKI} />
+                <Move move={JankenpoMove.PA} onClick={handleMoveClick}  isSelected={move === JankenpoMove.PA} />
+            </Moves>
+            <Button colorScheme='blue' onClick={handleReset}>Reset Game</Button>
+        </Container>
     )
 }
 

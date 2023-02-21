@@ -5,17 +5,9 @@ import { JankenpoMove, JankenpoMoveType } from '../../model/JankenpoMove'
 
 import { Container, ClickableArea } from './styles'
 
-import rockImg from '../../assets/rock.png'
-import paperImg from '../../assets/paper.png'
-import scissorsImg from '../../assets/scissors.png'
+import { moveImg } from '../../assets/JankenpoMoveImg'
 import useJankenpo from '../../hooks/useJankenpo'
 import { JankenpoGameStateType } from '../../model/JankenpoGameState'
-
-const moveImg = {
-    [JankenpoMove.GU]: rockImg,
-    [JankenpoMove.CHOKI]: scissorsImg,
-    [JankenpoMove.PA]: paperImg,
-}
 
 interface MoveProps {
     move: JankenpoMoveType

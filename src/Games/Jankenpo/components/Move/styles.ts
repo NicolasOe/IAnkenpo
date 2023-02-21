@@ -7,8 +7,6 @@ export const Container = styled(Flex)<{ selected: boolean }>`
   justify-content: center;
   color: black;
   background: white;
-  opacity: 0.8
-  min-height: 20rem;
   border-radius: 1rem;
   margin: 2px;
   box-shadow: ${({ selected }) => selected ? '0px 0px 1.5rem white' : 'none'} ;
@@ -21,7 +19,8 @@ export const Container = styled(Flex)<{ selected: boolean }>`
 export const ClickableArea = styled(Button)`
   flex-direction: column;
   background: white;
-  width: 15rem;
+  width: 100%;
+  max-width: min(20vw, 16rem);
   border-radius: 1rem;
   padding: 1rem;
   gap: 1rem;

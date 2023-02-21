@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import { GameName } from './games/interface';
+import { GameName } from './games/model/interface';
 import JankenpoBoard from './games/jankenpo/components/Board'
-import useGame from './games/useGame';
+import useGame from './games/hooks/useGame';
 function App() {
   const { initGame } = useGame();
   initGame(GameName.JANKENPO);

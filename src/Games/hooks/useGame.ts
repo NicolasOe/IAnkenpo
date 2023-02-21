@@ -1,4 +1,4 @@
-import { GameHook, GameMove, GameName } from "./interface"
+import { GameHook, GameMove, GameName } from "../model/interface"
 
 const useGame = ()  => {
     let gameHookImport: {

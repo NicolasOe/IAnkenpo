@@ -8,7 +8,7 @@ const useGame = ()  => {
     const initGame = async (gameName: GameName) => {
         try {
             let casedGameName = gameName[0].toUpperCase() + gameName.slice(1, gameName.length);
-            gameHookImport = await import(`./${gameName}/hooks/use${casedGameName}`);
+            gameHookImport = await import(`../${gameName}/hooks/use${casedGameName}`);
             gameHook = gameHookImport.default();
         } catch (error) {
             let message = "Unknown error";

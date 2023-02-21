@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import { Button } from '@chakra-ui/react'
+import useJankenpo from '../../hooks/useJankenpo'
 
 import { JankenpoGameStateType } from '../../model/JankenpoGameState'
 import { JankenpoMove, JankenpoMoveType } from '../../model/JankenpoMove'
@@ -10,25 +11,25 @@ import Result from '../Result'
 import { Container, Moves } from './styles'
 
 const Board: React.FC = () => {
-    const [result, setResult] = useState<JankenpoGameStateType | null>();
+    const [gameState, setGameState] = useState<JankenpoGameStateType>({p1Move: JankenpoMove.NONE, p2Move: JankenpoMove.NONE});
     const [move, setMove] = useState<JankenpoMoveType | null>();
-    
+    const { winnerCheck } = useJankenpo();
     const handleMoveClick = useCallback((
         jankenpoGameState: JankenpoGameStateType,
         selectedMove: JankenpoMoveType
     ) => {
-        setResult(jankenpoGameState);
+        setGameState(jankenpoGameState);
         setMove(selectedMove)
     }, []) 
         
     const handleReset = useCallback(() => {
-        setResult(null)
+        setGameState({p1Move: JankenpoMove.NONE, p2Move: JankenpoMove.NONE})
         setMove(null)
     }, []) 
 
     return (
         <Container>
-            <Result result={result} p1Move={move} p2Move={JankenpoMove.CHOKI}/>
+            <Result result={winnerCheck(gameState)} p1Move={move} p2Move={JankenpoMove.CHOKI}/>
             <Moves>
                 <Move move={JankenpoMove.GU} onClick={handleMoveClick} isSelected={move === JankenpoMove.GU} />
                 <Move move={JankenpoMove.CHOKI} onClick={handleMoveClick}  isSelected={move === JankenpoMove.CHOKI} />

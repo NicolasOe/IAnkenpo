@@ -10,5 +10,6 @@ export const moveImg = {
     [JankenpoMove.GU]: rockImg,
     [JankenpoMove.CHOKI]: scissorsImg,
     [JankenpoMove.PA]: paperImg,
-    'undefined': questionMarkImg,
+    [JankenpoMove.NONE]: questionMarkImg,
+    'undefined': questionMarkImg
 }

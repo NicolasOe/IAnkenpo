@@ -1,9 +1,8 @@
+import { JankenpoMove, JankenpoMoveType } from "./JankenpoMove"
 
-export const JankenpoGameState = {
-    P1WIN: "p1win",
-    P2WIN: "p2win",
-    DRAW: "draw"
-} as const
-export type JankenpoGameStateType = ConstantValues<typeof JankenpoGameState>
+export interface JankenpoGameStateType {
+    p1Move: JankenpoMoveType,
+    p2Move: JankenpoMoveType
+}
 
   

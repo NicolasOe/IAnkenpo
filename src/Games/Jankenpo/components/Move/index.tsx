@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react'
-import { Button } from '@chakra-ui/react'
+import { Text } from '@chakra-ui/react'
 
 import { JankenpoMove, JankenpoMoveType } from '../../model/JankenpoMove'
 
-import { Container} from './styles'
+import { Container, ClickableArea } from './styles'
 
 import rockImg from '../../assets/rock.png'
 import paperImg from '../../assets/paper.png'
@@ -18,29 +18,28 @@ const moveImg = {
 }
 
 interface MoveProps {
-    move: JankenpoMoveType,
-    onClick: (jankenpoGameState: JankenpoGameStateType) => void
+    move: JankenpoMoveType
+    isSelected: boolean
+    onClick: (
+        jankenpoGameState: JankenpoGameStateType,
+        selectedMove: JankenpoMoveType
+    ) => void
 }
 
-const Move: React.FC<MoveProps> = ({ move, onClick }) => {
+const Move: React.FC<MoveProps> = ({ move, isSelected, onClick }) => {
     const { runTurn } = useJankenpo();
 
     const handleClick = useCallback(() => {
         const result = runTurn(JankenpoMove[move])
-        onClick(result)
+        onClick(result, move)
     },[move, onClick, runTurn])
 
     return (
-        <Container>
-            <img src={moveImg[move]} alt={move} />
-            <Button
-                mt={6}
-                colorScheme='teal'
-                size='lg'
-                onClick={handleClick}
-            >
-                {move}
-            </Button>
+        <Container selected={isSelected}>
+            <ClickableArea onClick={handleClick} h='100%' >
+                <img src={moveImg[move]} alt={move} />
+                <Text mt={6} color='cyan.800'>{move}</Text>
+            </ClickableArea>
         </Container>
     )
 }

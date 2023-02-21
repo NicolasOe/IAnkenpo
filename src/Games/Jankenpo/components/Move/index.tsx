@@ -38,7 +38,7 @@ const Move: React.FC<MoveProps> = ({ move, isSelected, onClick }) => {
         <Container selected={isSelected}>
             <ClickableArea onClick={handleClick} h='100%' >
                 <img src={moveImg[move]} alt={move} />
-                <Text mt={6} color='cyan.800'>{move}</Text>
+                <Text fontSize='2xl' color='black'>{move}</Text>
             </ClickableArea>
         </Container>
     )

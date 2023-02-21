@@ -1,5 +1,4 @@
-import React from "react"
-import { GameHook, GameMove, GameName } from "./interface"
+import { GameHook, GameMove, GameName } from "../model/interface"
 
 const useGame = ()  => {
     let gameHookImport: {
@@ -11,7 +10,6 @@ const useGame = ()  => {
             let casedGameName = gameName[0].toUpperCase() + gameName.slice(1, gameName.length);
             gameHookImport = await import(`./${gameName}/hooks/use${casedGameName}`);
             gameHook = gameHookImport.default();
-            gameHook.imAlive();
         } catch (error) {
             let message = "Unknown error";
             if (error instanceof Error) {

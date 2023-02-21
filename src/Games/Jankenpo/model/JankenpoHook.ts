@@ -3,5 +3,4 @@ import { JankenpoMoveType } from "./JankenpoMove";
 
 export interface JankenpoHook {
     runTurn: (playerMove: JankenpoMoveType) => JankenpoGameStateType,
-    imAlive: () => void
 }

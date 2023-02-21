@@ -14,12 +14,13 @@ const informGameStateToIAn = (gameState: JankenpoGameStateType) => {
 }
 
 const useJankenpo = (): JankenpoHook  => {
-    function validateWin(winnerCandidateMove: JankenpoMoveType, loserCandidateMove: JankenpoMoveType) {
+    const validateWin = (winnerCandidateMove: JankenpoMoveType, loserCandidateMove: JankenpoMoveType) => {
         return (winnerCandidateMove === JankenpoMove.CHOKI && loserCandidateMove === JankenpoMove.PA)
             || (winnerCandidateMove === JankenpoMove.PA && loserCandidateMove === JankenpoMove.GU)
             || (winnerCandidateMove === JankenpoMove.GU && loserCandidateMove === JankenpoMove.CHOKI);
     }
-    function winnerCheck(p1Move: JankenpoMoveType, p2Move: JankenpoMoveType) {
+
+    const winnerCheck = (p1Move: JankenpoMoveType, p2Move: JankenpoMoveType) => {
         if (validateWin(p1Move, p2Move)) {
             return JankenpoGameState.P1WIN
         }
@@ -28,15 +29,14 @@ const useJankenpo = (): JankenpoHook  => {
         }
         return JankenpoGameState.DRAW
     }
-    const imAlive = (): void => {
-        console.log("Im Alive!");
-    }
-    const runTurn = (playerMove: JankenpoMoveType) => {
+    
+    const runTurn = (playerMove: JankenpoMoveType) => { 
         const gameState = winnerCheck(playerMove, runIAnMove());
         informGameStateToIAn(gameState);
         return gameState
     }
-    return { runTurn, imAlive }
+
+    return { runTurn }
 }
 
 export default (useJankenpo);

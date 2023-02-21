@@ -5,17 +5,21 @@ import { JankenpoMove, JankenpoMoveType } from "../model/JankenpoMove";
 const playerMoves: JankenpoMoveType[] = [];
 
 // Temporary function, to insert IA
-const runIAnMove = (): JankenpoMoveType => {
+const runIAnMove = () => {
     return JankenpoMove.CHOKI;
+}
+// Temporary function, to insert IA
+const informGameStateToIAn = (gameState: JankenpoGameStateType) => {
+    
 }
 
 const useJankenpo = (): JankenpoHook  => {
-    function validateWin(winnerCandidateMove: JankenpoMoveType, loserCandidateMove: JankenpoMoveType): boolean {
+    function validateWin(winnerCandidateMove: JankenpoMoveType, loserCandidateMove: JankenpoMoveType) {
         return (winnerCandidateMove === JankenpoMove.CHOKI && loserCandidateMove === JankenpoMove.PA)
             || (winnerCandidateMove === JankenpoMove.PA && loserCandidateMove === JankenpoMove.GU)
             || (winnerCandidateMove === JankenpoMove.GU && loserCandidateMove === JankenpoMove.CHOKI);
     }
-    function winnerCheck(p1Move: JankenpoMoveType, p2Move: JankenpoMoveType): JankenpoGameStateType {
+    function winnerCheck(p1Move: JankenpoMoveType, p2Move: JankenpoMoveType) {
         if (validateWin(p1Move, p2Move)) {
             return JankenpoGameState.P1WIN
         }
@@ -27,10 +31,11 @@ const useJankenpo = (): JankenpoHook  => {
     const imAlive = (): void => {
         console.log("Im Alive!");
     }
-    const runTurn = (playerMove: JankenpoMoveType): JankenpoGameStateType => { 
-        return winnerCheck(playerMove, runIAnMove());
+    const runTurn = (playerMove: JankenpoMoveType) => {
+        const gameState = winnerCheck(playerMove, runIAnMove());
+        informGameStateToIAn(gameState);
+        return gameState
     }
-
     return { runTurn, imAlive }
 }
 

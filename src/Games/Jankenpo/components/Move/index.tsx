@@ -6,7 +6,6 @@ import { JankenpoMoveType } from '../../model/JankenpoMove'
 import { Container, ClickableArea } from './styles'
 
 import { moveImg } from '../../assets/JankenpoMoveImg'
-import useJankenpo from '../../hooks/useJankenpo'
 
 interface MoveProps {
     move: JankenpoMoveType
@@ -17,11 +16,9 @@ interface MoveProps {
 }
 
 const Move: React.FC<MoveProps> = ({ move, isSelected, onClick }) => {
-    const { runTurn } = useJankenpo();
-
     const handleClick = useCallback(() => {
         onClick(move)
-    },[move, onClick, runTurn])
+    },[move, onClick])
 
     return (
         <Container selected={isSelected}>

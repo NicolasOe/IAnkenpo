@@ -18,7 +18,7 @@ const Board: React.FC = () => {
     ) => {
         const jankenpoGameState = runTurn(selectedMove);
         setGameState(jankenpoGameState);
-    }, []) 
+    }, [runTurn]) 
         
     const handleReset = useCallback(() => {
         setGameState({p1Move: JankenpoMove.NONE, p2Move: JankenpoMove.NONE})

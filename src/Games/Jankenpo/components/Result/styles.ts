@@ -21,7 +21,7 @@ export const Move = styled(Flex)<{ result: string, player: string }>`
     ? '5px solid green'
     : ( result === 'draw'
       ? '5px solid yellow'
-      : (result === ''
+      : (result === 'none'
         ? 'none'
         : '5px solid red'))};
   
@@ -30,7 +30,7 @@ export const Move = styled(Flex)<{ result: string, player: string }>`
     ? '"Winner"'
     : ( result === 'draw'
       ? '"Draw"'
-      : (result === ''
+      : (result === 'none'
         ? ''
         : '"Loser"'))};
     color: ${({ result, player }) => result === player 

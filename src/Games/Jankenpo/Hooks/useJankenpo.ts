@@ -16,7 +16,7 @@ const moveToWinAgainst = (move: JankenpoMoveType) => {
     return winnerMove;
 }
 // Temporary function, to insert IA
-const runIAnMove = () => {
+export const runIAnMove = () => {
     let ianMove: JankenpoMoveType = JankenpoMove.CHOKI;
     let frequencyCount: Map<JankenpoMoveType, number> = new Map<JankenpoMoveType, number>();
     for (let i = 0; i < playerMoves.length - 1; i++) {
@@ -35,7 +35,7 @@ const runIAnMove = () => {
     return ianMove;
 }
 // Temporary function, to insert IA
-const informGameStateToIAn = (gameState: JankenpoGameStateType) => {
+export const informGameStateToIAn = (gameState: JankenpoGameStateType) => {
     playerMoves.push({
         p1Move: gameState.p1Move,
         p2Move: gameState.p2Move

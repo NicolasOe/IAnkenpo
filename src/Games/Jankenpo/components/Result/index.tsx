@@ -8,14 +8,14 @@ import { Container, Move } from './styles'
 import { moveImg } from '../../assets/JankenpoMoveImg'
 
 interface ResultProps {
-    result?: string | null
+    result?: string
     p1Move?: JankenpoMoveType | null
     p2Move?: JankenpoMoveType | null
 }
 
 const Result: React.FC<ResultProps> = ({ result, p1Move, p2Move }) => {
-    const imgP1 = result && p1Move ? moveImg[p1Move] : moveImg.undefined
-    const imgP2 = result && p2Move ? moveImg[p2Move] : moveImg.undefined
+    const imgP1 = p1Move ? moveImg[p1Move] : moveImg.undefined
+    const imgP2 = p2Move ? moveImg[p2Move] : moveImg.undefined
 
     return (
         <Container>

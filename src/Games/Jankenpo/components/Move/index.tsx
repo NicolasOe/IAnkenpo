@@ -1,19 +1,17 @@
 import React, { useCallback } from 'react'
 import { Text } from '@chakra-ui/react'
 
-import { JankenpoMove, JankenpoMoveType } from '../../model/JankenpoMove'
+import { JankenpoMoveType } from '../../model/JankenpoMove'
 
 import { Container, ClickableArea } from './styles'
 
 import { moveImg } from '../../assets/JankenpoMoveImg'
 import useJankenpo from '../../hooks/useJankenpo'
-import { JankenpoGameStateType } from '../../model/JankenpoGameState'
 
 interface MoveProps {
     move: JankenpoMoveType
     isSelected: boolean
     onClick: (
-        jankenpoGameState: JankenpoGameStateType,
         selectedMove: JankenpoMoveType
     ) => void
 }
@@ -22,8 +20,7 @@ const Move: React.FC<MoveProps> = ({ move, isSelected, onClick }) => {
     const { runTurn } = useJankenpo();
 
     const handleClick = useCallback(() => {
-        const result = runTurn(JankenpoMove[move])
-        onClick(result, move)
+        onClick(move)
     },[move, onClick, runTurn])
 
     return (

@@ -11,7 +11,7 @@ import Result from '../Result'
 import { Container, Moves } from './styles'
 
 const Board: React.FC = () => {
-    const [gameState, setGameState] = useState<JankenpoGameStateType>({p1Move: JankenpoMove.NONE, p2Move: JankenpoMove.NONE});
+    const [gameState, setGameState] = useState<JankenpoGameStateType>({ playerMove:[JankenpoMove.NONE, JankenpoMove.NONE] });
     const { runTurn, winnerCheck } = useJankenpo();
     const handleMoveClick = useCallback((
         selectedMove: JankenpoMoveType
@@ -21,16 +21,16 @@ const Board: React.FC = () => {
     }, [runTurn]) 
         
     const handleReset = useCallback(() => {
-        setGameState({p1Move: JankenpoMove.NONE, p2Move: JankenpoMove.NONE})
+        setGameState({ playerMove:[JankenpoMove.NONE, JankenpoMove.NONE] })
     }, []) 
 
     return (
         <Container>
-            <Result result={winnerCheck(gameState)} p1Move={gameState.p1Move} p2Move={gameState.p2Move}/>
+            <Result result={winnerCheck(gameState)} playerMove={gameState.playerMove} />
             <Moves>
-                <Move move={JankenpoMove.GU} onClick={handleMoveClick} isSelected={gameState.p1Move === JankenpoMove.GU} />
-                <Move move={JankenpoMove.CHOKI} onClick={handleMoveClick}  isSelected={gameState.p1Move === JankenpoMove.CHOKI} />
-                <Move move={JankenpoMove.PA} onClick={handleMoveClick}  isSelected={gameState.p1Move === JankenpoMove.PA} />
+                <Move move={JankenpoMove.GU} onClick={handleMoveClick} isSelected={gameState.playerMove[0] === JankenpoMove.GU} />
+                <Move move={JankenpoMove.CHOKI} onClick={handleMoveClick}  isSelected={gameState.playerMove[0] === JankenpoMove.CHOKI} />
+                <Move move={JankenpoMove.PA} onClick={handleMoveClick}  isSelected={gameState.playerMove[0] === JankenpoMove.PA} />
             </Moves>
             <Button colorScheme='blue' onClick={handleReset}>Reset Game</Button>
         </Container>

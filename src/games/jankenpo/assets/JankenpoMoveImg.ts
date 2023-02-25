@@ -13,3 +13,4 @@ export const moveImg = {
     [JankenpoMove.NONE]: questionMarkImg,
     'undefined': questionMarkImg
 }
+export type MoveImgType = ConstantValues<typeof moveImg>

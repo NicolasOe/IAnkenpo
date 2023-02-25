@@ -5,7 +5,7 @@ import { JankenpoHook } from "../model/JankenpoHook";
 import { JankenpoMove, JankenpoMoveType } from "../model/JankenpoMove";
 
 const gameStateTrack: JankenpoGameStateType[] = [];
-let points: number[] = [0, 0, 0];
+const points: number[][] = [[0, 0, 0]];
 
 const moveToWinAgainst = (move: JankenpoMoveType) => {
     let winnerMove: JankenpoMoveType = JankenpoMove.GU;
@@ -48,7 +48,7 @@ const useJankenpo = (): JankenpoHook  => {
     
     const computePoints = (gameState: JankenpoGameStateType) => {
         const result = winnerCheck(gameState);
-        const updatedPoints = points;
+        const updatedPoints = [...points[points.length - 1]];
         
         for (let i = 0; i < 2; i++) {
             (result as string).indexOf(`${i + 1}`) > 0 && updatedPoints[i]++;
@@ -56,7 +56,7 @@ const useJankenpo = (): JankenpoHook  => {
         if (result === WinnerState.DRAW) {
             updatedPoints[updatedPoints.length - 1]++;
         }
-        points = updatedPoints;
+        points.push(updatedPoints);
         console.log(points);
     }
     const validateWin = (winnerCandidateMove: JankenpoMoveType, loserCandidateMove: JankenpoMoveType) => {

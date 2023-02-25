@@ -1,38 +1,42 @@
-import React, { useState, useCallback } from 'react'
+import React from 'react'
 import { Button } from '@chakra-ui/react'
-import useJankenpo from '../../hooks/useJankenpo'
-
-import { JankenpoGameStateType } from '../../model/JankenpoGameState'
 import { JankenpoMove, JankenpoMoveType } from '../../model/JankenpoMove'
 
 import Move from '../Move'
 import Result from '../Result'
 
 import { Container, Moves } from './styles'
+import { WinnerStateType } from '../../../model/interface'
+import { JankenpoGameState } from '../../model/JankenpoGameState'
 
-const Board: React.FC = () => {
-    const [gameState, setGameState] = useState<JankenpoGameStateType>({ playerMove:[JankenpoMove.NONE, JankenpoMove.NONE] });
-    const { runTurn, winnerCheck } = useJankenpo();
-    const handleMoveClick = useCallback((
-        selectedMove: JankenpoMoveType
-    ) => {
-        const jankenpoGameState = runTurn(selectedMove);
-        setGameState(jankenpoGameState);
-    }, [runTurn]) 
-        
-    const handleReset = useCallback(() => {
-        setGameState({ playerMove:[JankenpoMove.NONE, JankenpoMove.NONE] })
-    }, []) 
-
+interface BoardProps {
+    handleMoveClickCallback: (playerMove: JankenpoMoveType[]) => void,
+    handleResetGame: () => void,
+    result: WinnerStateType,
+    gameState: JankenpoGameState
+}
+const Board: React.FC<BoardProps> = ({ handleMoveClickCallback, result, gameState, handleResetGame }) => {
     return (
         <Container>
-            <Result result={winnerCheck(gameState)} playerMove={gameState.playerMove} />
+            <Result result={result} playerMove={gameState.playerMove} />
             <Moves>
-                <Move move={JankenpoMove.GU} onClick={handleMoveClick} isSelected={gameState.playerMove[0] === JankenpoMove.GU} />
-                <Move move={JankenpoMove.CHOKI} onClick={handleMoveClick}  isSelected={gameState.playerMove[0] === JankenpoMove.CHOKI} />
-                <Move move={JankenpoMove.PA} onClick={handleMoveClick}  isSelected={gameState.playerMove[0] === JankenpoMove.PA} />
+                { 
+                    Object.keys(JankenpoMove).map((move) => {
+                        const typedMove = move as JankenpoMoveType;
+                        if (typedMove === JankenpoMove.NONE) {
+                            return;
+                        }
+                        return(
+                            <Move
+                                move={JankenpoMove[typedMove]}
+                                onClick={() => { handleMoveClickCallback([JankenpoMove[typedMove]]) }}
+                                isSelected={gameState.playerMove[0] === JankenpoMove[typedMove]}
+                            />
+                        )
+                    })
+                }
             </Moves>
-            <Button colorScheme='blue' onClick={handleReset}>Reset Game</Button>
+            <Button colorScheme='blue' onClick={handleResetGame}>Reset Game</Button>
         </Container>
     )
 }

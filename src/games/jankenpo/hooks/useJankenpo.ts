@@ -1,52 +1,17 @@
-import { useState } from "react";
 import { WinnerState, WinnerStateType } from "../../model/interface";
-import { JankenpoGameStateType } from "../model/JankenpoGameState";
+import { JankenpoGameState } from "../model/JankenpoGameState";
 import { JankenpoHook } from "../model/JankenpoHook";
 import { JankenpoMove, JankenpoMoveType } from "../model/JankenpoMove";
 
-const gameStateTrack: JankenpoGameStateType[] = [];
-const points: number[][] = [[0, 0, 0]];
-
-const moveToWinAgainst = (move: JankenpoMoveType) => {
-    let winnerMove: JankenpoMoveType = JankenpoMove.GU;
-    Object.keys(JankenpoMove).forEach((moveCandidate) => {
-        const typedMoveCandidate = moveCandidate as JankenpoMoveType;
-        if (useJankenpo().winnerCheck({ playerMove: [move, typedMoveCandidate] }) === WinnerState.P2WIN)  {
-            winnerMove = typedMoveCandidate;
-        }
-    });
-    return winnerMove;
-}
-// Temporary function, to insert IA
-export const runIAnMove = () => {
-    let ianMove: JankenpoMoveType = JankenpoMove.CHOKI;
-    let frequencyCount: Map<JankenpoMoveType, number> = new Map<JankenpoMoveType, number>();
-    for (let i = 0; i < gameStateTrack.length - 1; i++) {
-        if (JSON.stringify(gameStateTrack[i]) === JSON.stringify(gameStateTrack[gameStateTrack.length - 1])) {
-            const playerNextMoveWouldBe = gameStateTrack[i + 1].playerMove[0];
-            frequencyCount.set(playerNextMoveWouldBe, (frequencyCount.get(playerNextMoveWouldBe) || 0) + 1);
+const useJankenpo = (
+): JankenpoHook  => {
+    const points: number[][] = [[0, 0, 0]];
+    const init = (): JankenpoGameState => {
+        return {
+            playerMove: [JankenpoMove.NONE, JankenpoMove.NONE]
         }
     }
-    let maxHit = 0;
-   frequencyCount.forEach((playHit, key) => {
-        if (maxHit < playHit) {
-            maxHit = playHit;
-            ianMove = moveToWinAgainst(key as JankenpoMoveType);
-        }
-    });
-    return ianMove;
-}
-// Temporary function, to insert IA
-export const informGameStateToIAn = (gameState: JankenpoGameStateType) => {
-    gameStateTrack.push({
-        playerMove: gameState.playerMove
-    });
-    console.log(gameStateTrack);
-}
-
-const useJankenpo = (): JankenpoHook  => {
-    
-    const computePoints = (gameState: JankenpoGameStateType) => {
+    const computePoints = (gameState: JankenpoGameState) => {
         const result = winnerCheck(gameState);
         const updatedPoints = [...points[points.length - 1]];
         
@@ -65,7 +30,7 @@ const useJankenpo = (): JankenpoHook  => {
             || (winnerCandidateMove === JankenpoMove.GU && loserCandidateMove === JankenpoMove.CHOKI);
     }
 
-    const winnerCheck = (gameState: JankenpoGameStateType): WinnerStateType => {
+    const winnerCheck = (gameState: JankenpoGameState): WinnerStateType => {
         const { playerMove } = gameState;
         if (playerMove[0] === JankenpoMove.NONE || playerMove[1] === JankenpoMove.NONE) {
             return WinnerState.NONE;
@@ -79,16 +44,15 @@ const useJankenpo = (): JankenpoHook  => {
         return WinnerState.DRAW
     }
     
-    const runTurn = (playerCurrentMove: JankenpoMoveType): JankenpoGameStateType => {
-        const gameState: JankenpoGameStateType = {
-            playerMove: [playerCurrentMove, runIAnMove()]
+    const runTurn = (playerCurrentMove: JankenpoMoveType[]): JankenpoGameState => {
+        const gameState: JankenpoGameState = {
+            playerMove: playerCurrentMove
         };
-        informGameStateToIAn(gameState);
         computePoints(gameState);
         return gameState;
     }
 
-    return { runTurn, winnerCheck }
+    return { runTurn, winnerCheck, init }
 }
 
 export default (useJankenpo);

@@ -1,6 +1,6 @@
 import { JankenpoMoveType } from "./JankenpoMove"
 
-export interface JankenpoGameStateType {
+export interface JankenpoGameState {
     playerMove: JankenpoMoveType[]
 }
 

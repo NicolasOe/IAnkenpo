@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Text } from '@chakra-ui/react'
 
 import { JankenpoMoveType } from '../../model/JankenpoMove'
@@ -6,7 +6,6 @@ import { JankenpoMoveType } from '../../model/JankenpoMove'
 import { Container, Move } from './styles'
 
 import { moveImg, MoveImgType } from '../../assets/JankenpoMoveImg'
-import { WinnerState } from '../../../model/interface'
 
 interface ResultProps {
     result?: string

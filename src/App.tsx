@@ -14,7 +14,7 @@ const LoadingState = {
 type LoadingStateType = ConstantValues<typeof LoadingState>;
 
 function App() {
-  const { initGame, runTurn, informGameStateToIAn, getWinner } = useGame();
+  const { initGame, runTurn, informGameStateToIAn, getWinner, points } = useGame();
   const [loadingState, setLoadingState] = useState<LoadingStateType>(LoadingState.LOADING);
   const [gameState, setGameState] = useState<JankenpoGameState>({
     playerMove: [JankenpoMove.NONE, JankenpoMove.NONE]
@@ -36,6 +36,7 @@ function App() {
         handleResetGame={() => {}}
         result={getWinner(gameState)}
         gameState={gameState}
+        points={points}
       />
       : <span>LOADING</span>
   )

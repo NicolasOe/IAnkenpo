@@ -52,7 +52,7 @@ const useJankenpo = (
         return gameState;
     }
 
-    return { runTurn, winnerCheck, init }
+    return { runTurn, winnerCheck, init, points }
 }
 
 export default (useJankenpo);

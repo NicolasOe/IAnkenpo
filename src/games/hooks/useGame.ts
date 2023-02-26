@@ -45,7 +45,8 @@ const useGame = ()  => {
     const getWinner = (gameState: GameState) => {
         return gameHook.winnerCheck(gameState);
     }
-    return { initGame, runTurn, informGameStateToIAn, getGameState, getWinner }
+
+    return { initGame, runTurn, informGameStateToIAn, getGameState, getWinner, points: gameHook?.points || [[0, 0, 0]] }
 }
 
 export default (useGame);

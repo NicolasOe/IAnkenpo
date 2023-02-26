@@ -21,8 +21,9 @@ function App() {
   });
 
   const inputCallBack = (playerInput: JankenpoMoveType[]) => {
-    setGameState(runTurn([...playerInput]));
-    informGameStateToIAn(gameState);
+    const currentGameState = runTurn([...playerInput]);
+    setGameState(currentGameState);
+    informGameStateToIAn(currentGameState);
   }
 
   loadingState === LoadingState.LOADING && initGame(GameName.JANKENPO).then(() => {

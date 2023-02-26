@@ -25,7 +25,7 @@ const Result: React.FC<ResultProps> = ({ result, playerMove }) => {
                         <>
                             <Move result={result || ''} player={`p${index + 1}win`}>
                                 <img width='40%' src={playImage[index]} alt={move || `waiting for player ${index + 1}`} />
-                                <Text fontSize='2xl' color='black'>Player 1</Text>
+                                <Text fontSize='2xl' color='black'>{`Player ${index + 1}`}</Text>
                             </Move>
                             { index === 0 && <Text fontSize='6xl' color='white'>vs</Text> }
                         </>
